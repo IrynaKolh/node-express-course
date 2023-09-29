@@ -3,8 +3,8 @@ const path = require('path');
 
 const filePath = path.join(__dirname, 'temporary', 'fileA.txt');
 
-const first = readFileSync('../content/first.txt', 'utf8');
-const second = readFileSync('../content/second.txt', 'utf8');
+const first = 'Hello this is first text line';
+const second = 'Hello this is second text line';
 const third = 'Hello this is third text line';
 
 try {
