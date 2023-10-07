@@ -4,9 +4,10 @@ const stream = createReadStream('../content/big.txt', { encoding: 'utf8', highWa
 
 let counter = 0;
 
-stream.on('data', () => {
+stream.on('data', (chunk) => {
   counter++;
-  console.log(counter)
+  console.log(`Received chunk ${counter}`)
+  // console.log(chunk)
 })
 stream.on('end', () => {
   console.log(`The number of chunks received is ${counter}`)
