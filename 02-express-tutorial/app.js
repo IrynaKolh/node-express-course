@@ -39,7 +39,7 @@ app.get("/api/v1/query", (req, res) => {
   }
   // http://localhost:3000/api/v1/query?search=&limit=5&price=20   => 2 products
   if (price) {
-    foundProduct = foundProduct.filter((product) => product.price >= 20.0);
+    foundProduct = foundProduct.filter((product) => product.price >= price);
   }
   if (foundProduct.length < 1) {
     return res.status(200).json({
