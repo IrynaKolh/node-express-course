@@ -5,6 +5,7 @@ const connectDb = require("./db/connect");
 require("dotenv").config();
 const errorHandler = require("./middleware/errorHandler");
 require("express-async-errors");
+const notFound = require("./middleware/notFound");
 
 const port = process.env.PORT ? process.env.PORT : 3000;
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/v1/tasks", tasks);
 
 app.use(errorHandler);
+app.use(notFound);
 
 // Additional Assignment
 // app.use((err, req, res, next) => {
