@@ -1,0 +1,44 @@
+1. Quickly explain how middleware is used in an Express application.
+
+Middleware functions are an integral part of an application built with the Express framework 
+(henceforth referred to as Express application). 
+They access the HTTP request and response objects and can either terminate the HTTP request 
+or forward it for further processing to another middleware function.
+Middleware functions are attached to one or more route handlers in an Express application 
+and execute in sequence from the time an HTTP request is received by the application till 
+an HTTP response is sent back to the caller.
+Middleware in Express are functions that come into play after the server receives the request 
+and before the response is sent to the client. They are arranged in a chain and are called 
+in sequence.
+We can use middleware functions for different types of processing tasks required for fulfilling 
+the request like database querying, making API calls, preparing the response, etc, and finally 
+calling the next middleware function in the chain.
+Middleware functions take three arguments: the request object (request), the response object 
+(response), and optionally the next() middleware function.
+Middleware functions in Express are of the following types:
+- Application-level middleware which runs for all routes in an app object
+- Router level middleware which runs for all routes in a router object
+- Built-in middleware provided by Express (like express.static, express.json, express.urlencoded)
+- Error handling middleware for handling errors
+- Third-party middleware maintained by the community
+
+2. What does CRUD stand for?
+
+CRUD is an acronym that comes from the world of computer programming and refers to 
+the four functions that are considered necessary to implement a persistent storage application: 
+create, read, update and delete.
+The four CRUD functions can be called by users to perform different types of operations 
+on selected data within the database.
+- The create function allows users to create a new record in the database. 
+- The read function is similar to a search function. It allows users to search 
+and retrieve specific records in the table and read their values. Users may be able 
+to find desired records using keywords, or by filtering the data based on customized criteria. 
+- The update function is used to modify existing records that exist in the database. 
+To fully/particular change a record, users may have to modify information in multiple fields. 
+- The delete function allows users to remove records from a database that is no longer needed.
+
+3. You are careful to store your sensitive information in a .env file.
+  1. How do you get your app to access the information in the .env file?
+Using import .env file throw require("dotenv").config() and process.env.{variable name} where needed.
+  2. How do you protect the contents of the .env file so that it is not stored in your Github repository?
+Using .gitignore file to exclude .env from pushing secret dats to Github.
