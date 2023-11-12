@@ -1,0 +1,51 @@
+1. In this lesson, you created a middleware function called asyncWrapper. Why?
+The asyncWrapper function is a higher-order function used in JavaScript for handling asynchronous functions, 
+particularly in the context of Express.js web frameworks. It's commonly used as middleware in Express.js routes 
+to simplify error handling for asynchronous route handlers. Here's what it does and why it's used:
+
+Input: -> fn: This is a function that takes in the req (request), res (response), and next parameters. It represents the asynchronous 
+route handler that you want to wrap with error handling.
+
+Output: -> asyncWrapper returns a new function that takes the same parameters as fn: req, res, and next. 
+This new function is also an asynchronous function.
+
+Functionality: Inside the returned function, it awaits the execution of the original fn with the provided req, res, 
+and next parameters. If fn executes successfully without any errors, the code proceeds normally. If there's an error 
+(an exception is thrown) during the execution of fn, it catches the error using a try-catch block and passes it 
+to the next function. This is essential for Express.js, as it allows error handling middleware to capture and 
+process the error. Without this error handling, the unhandled error might crash the entire application.
+
+Why it's used:
+- It simplifies error handling for asynchronous code: Handling errors in asynchronous code can be complex due to the nature 
+of promises or async/await. 'asyncWrapper' encapsulates this complexity by catching any errors that occur in the asynchronous 
+function fn and passing them to Express.js's error handling middleware.
+- It promotes consistent error handling: Using asyncWrapper consistently for asynchronous route handlers ensures that errors 
+are consistently handled throughout your application.
+- It enhances code readability: By abstracting the error handling logic into a reusable wrapper function, the actual route 
+handlers can focus on their main tasks, making the code more readable and maintainable.
+- It separates concerns: The asyncWrapper function separates the concerns of handling errors from the main route handling logic, 
+following the principle of separation of concerns in software development.
+
+By using asyncWrapper in this way, you ensure that any errors occurring within the route handler will be properly caught 
+and passed to the Express.js error handling middleware.
+
+
+2. Complete the code:
+const getTask = asyncWrapper(async (req, res, next) => {
+  const { id: taskID } = req.params;
+  const task = await Task.findOne({ _id: taskID });
+   if (!task) {
+    return next(createCustomError(`Task with id : ${taskID} not found`, 404));
+  }
+  res.status(200).json({ task });
+});
+
+if use 'express-async-errors':
+
+const getTask = asyncWrapper(async (req, res, next) => {
+  const { id: taskID } = req.params;
+  const task = await Task.findOne({ _id: taskID });
+  if (!task) throw Error("Not found");
+  res.status(200).json({ task });
+});
+
