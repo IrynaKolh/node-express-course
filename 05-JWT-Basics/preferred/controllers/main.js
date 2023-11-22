@@ -38,22 +38,23 @@ const login = async (req, res) => {
 
   const id = user._id;
   const token = jwt.sign({ email, id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
+    expiresIn: "24h",
   }); // TODO: what kind of data need to be used in the token (password or id)?
 
   res.status(200).json({ msg: "user login", token });
 };
 
-const dashboard = async (req, res) => {
+const hello = async (req, res) => {
   const luckyNumber = Math.floor(Math.random() * 100);
+  const user = await User.findOne({ email: req.user.email });
   res.status(200).json({
-    msg: `Hello, ${req.user.username}`,
+    msg: `Hello, ${user.name}`,
     secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
   });
 };
 
 module.exports = {
   login,
-  dashboard,
+  hello,
   signup,
 };
